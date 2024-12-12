@@ -8,13 +8,17 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"sync"
 	"syscall"
-	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
+var WG sync.WaitGroup
+
 func main() {
+	// database.InitDB()
+
 	handler := setupHandler()
 
 	server := &http.Server{
@@ -35,15 +39,12 @@ func main() {
 	<-done
 	log.Println("Shutting down server...")
 
-	// close db conneection
-	/*
-	 code
-	*/
+	WG.Wait()
 
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
+	// close db connection
+	// database.CloseDB()
 
-	if err := server.Shutdown(ctx); err != nil {
+	if err := server.Shutdown(context.TODO()); err != nil {
 		log.Fatal("Error while shutting down Server. Initiating force shutdown...")
 	} else {
 		fmt.Print("Server exiting")
@@ -52,6 +53,14 @@ func main() {
 
 func setupHandler() *gin.Engine {
 	router := gin.New()
+
+	// default route
+	router.GET("/ping", func(c *gin.Context) {
+		WG.Add(1)
+		defer WG.Done()
+
+		c.JSON(http.StatusOK, gin.H{"message": "Pong !"})
+	})
 
 	return router
 }

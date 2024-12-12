@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "api-route-http-client",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
