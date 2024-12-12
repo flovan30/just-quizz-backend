@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"just-quizz-server/database"
 	"log"
 	"net/http"
 	"os"
@@ -12,12 +13,17 @@ import (
 	"syscall"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 var WG sync.WaitGroup
 
 func main() {
-	// database.InitDB()
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	database.InitDB()
 
 	handler := setupHandler()
 
@@ -27,7 +33,6 @@ func main() {
 	}
 
 	done := make(chan os.Signal, 1)
-
 	signal.Notify(done, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
@@ -42,7 +47,7 @@ func main() {
 	WG.Wait()
 
 	// close db connection
-	// database.CloseDB()
+	database.CloseDB()
 
 	if err := server.Shutdown(context.TODO()); err != nil {
 		log.Fatal("Error while shutting down Server. Initiating force shutdown...")
