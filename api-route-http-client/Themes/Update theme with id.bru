@@ -1,0 +1,22 @@
+meta {
+  name: Update theme with id
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://{{host}}/themes/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: edb18fd2-336b-4e60-a306-44450c8f2705
+}
+
+body:json {
+  {
+    "name": "test_updated",
+    "icon_url": "url_2"
+  }
+}

@@ -1,0 +1,18 @@
+meta {
+  name: New theme
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://{{host}}/themes/new
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "test",
+    "icon_url": "url"
+  }
+}

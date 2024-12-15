@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"just-quizz-server/models"
 	"log"
 	"os"
 
@@ -13,8 +14,9 @@ var DB *gorm.DB
 
 func InitDB() {
 	var err error
+
 	dsn := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s port=%v sslmode=disable",
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
 		os.Getenv("DB_USER"),
 		os.Getenv("DB_PASSWORD"),
@@ -29,6 +31,15 @@ func InitDB() {
 
 	if err != nil {
 		log.Fatalf("failed to connect database: %v", err)
+	}
+
+	// models migration
+	err = DB.AutoMigrate(
+		&models.Themes{},
+	)
+
+	if err != nil {
+		log.Fatalf("Failed to migrate database: %v", err)
 	}
 
 	log.Println("Database connection established")

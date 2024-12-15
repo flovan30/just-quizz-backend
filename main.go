@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"just-quizz-server/database"
+	"just-quizz-server/routes"
 	"log"
 	"net/http"
 	"os"
@@ -28,7 +29,7 @@ func main() {
 	handler := setupHandler()
 
 	server := &http.Server{
-		Addr:    ":3000",
+		Addr:    os.Getenv("API_PORT"),
 		Handler: handler,
 	}
 
@@ -52,7 +53,7 @@ func main() {
 	if err := server.Shutdown(context.TODO()); err != nil {
 		log.Fatal("Error while shutting down Server. Initiating force shutdown...")
 	} else {
-		fmt.Print("Server exiting")
+		fmt.Print("Server is now shutdown.")
 	}
 }
 
@@ -66,6 +67,9 @@ func setupHandler() *gin.Engine {
 
 		c.JSON(http.StatusOK, gin.H{"message": "Pong !"})
 	})
+
+	// register routes
+	routes.RegisterThemeGroup(router, &WG)
 
 	return router
 }
