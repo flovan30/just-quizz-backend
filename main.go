@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"just-quizz-server/config"
 	"just-quizz-server/database"
 	"just-quizz-server/routes"
 	"log"
@@ -12,6 +13,7 @@ import (
 	"os/signal"
 	"sync"
 	"syscall"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -57,6 +59,11 @@ func main() {
 	}
 }
 
+func init() {
+	config.LoadEnvironmentVariables()
+	config.InitDatabaseConnection()
+}
+
 func setupHandler() *gin.Engine {
 	router := gin.New()
 
@@ -64,6 +71,8 @@ func setupHandler() *gin.Engine {
 	router.GET("/ping", func(c *gin.Context) {
 		WG.Add(1)
 		defer WG.Done()
+
+		time.Sleep(30 * time.Second)
 
 		c.JSON(http.StatusOK, gin.H{"message": "Pong !"})
 	})
