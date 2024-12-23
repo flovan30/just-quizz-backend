@@ -1,0 +1,21 @@
+meta {
+  name: Get 10 random questions
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{host}}/questions/random
+  body: none
+  auth: none
+}
+
+body:json {
+    {
+      "question": "Quel est le nom du méchant dans Le Livre de la Jungle ?",
+      "difficulty": 3,
+      "proposed_response": ["Baloo", "Bagheera", "Shere Khan", "Kaa"],
+      "correct_answer": "Shere Khan",
+      "theme_id": "638c29ae-3691-4b53-80b9-da991b81685d"
+    }
+}

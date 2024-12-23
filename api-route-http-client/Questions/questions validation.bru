@@ -1,0 +1,58 @@
+meta {
+  name: questions validation
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://{{host}}/questions/validation
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "answers": [
+      {
+        "question_id": "54d71595-35cd-4a5d-b188-8dcabcf28330",
+        "answer": "Elsa"
+      },
+      {
+        "question_id": "527635b6-d318-4180-a6f0-1639fdbf7e99",
+        "answer": "Génie"
+      },
+      {
+        "question_id": "233a9d3a-c853-40b9-b11b-5e61293423b2",
+        "answer": "Jafar"
+      },
+      {
+        "question_id": "33145ca5-9a22-4666-b264-9fea39ac99b4",
+        "answer": "Cri-Kee"
+      },
+      {
+        "question_id": "1a083a37-1233-4564-8804-ca4fcd775bfa",
+        "answer": "Buzz l'Éclair"
+      },
+      {
+        "question_id": "cdacba62-22a6-49e4-9648-75709f6c7b10",
+        "answer": "R2-D2"
+      },
+      {
+        "question_id": "d54493b4-c096-4547-92e7-140a3815ab23",
+        "answer": "Mario"
+      },
+      {
+        "question_id": "75a2fc7e-d1c8-4093-8cbe-5efc80db00d4",
+        "answer": "Cendrillon"
+      },
+      {
+        "question_id": "105fab15-0c73-4f7e-ba30-60695fc4ff0d",
+        "answer": "Nemo"
+      },
+      {
+        "question_id": "8818ed1c-d7a8-4c7b-8656-5a6a689ee8b8",
+        "answer": "Baloo"
+      }
+    ]
+  }
+}

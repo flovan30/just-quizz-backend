@@ -79,6 +79,7 @@ func setupHandler() *gin.Engine {
 
 	// register routes
 	routes.RegisterThemeGroup(router, &WG)
+	routes.RegisterQuestionGroup(router, &WG)
 
 	return router
 }

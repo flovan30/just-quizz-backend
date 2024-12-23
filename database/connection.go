@@ -36,6 +36,7 @@ func InitDB() {
 	// models migration
 	err = DB.AutoMigrate(
 		&models.Themes{},
+		&models.Questions{},
 	)
 
 	if err != nil {
